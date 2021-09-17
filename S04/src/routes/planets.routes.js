@@ -20,7 +20,7 @@ class PlanetsRoutes {
     }
 
     patch(req, res, next) {
-        return next(HttpError.NotImplemented());
+        return next(HttpError.NotImplemented()); //Ou pas lol
     }
 
     put(req, res, next) {
