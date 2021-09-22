@@ -6,7 +6,7 @@ const planetSchema = mongoose.Schema({
     discoveredBy: { type: String, index: true },
     discoveryDate: Date,
     temperature: Number,
-    satellite: [String],
+    satellites: [String],
     position: {
         x: { type: Number, min: -1000, max: 1000, required: true },
         y: { type: Number, min: -1000, max: 1000, required: true },
