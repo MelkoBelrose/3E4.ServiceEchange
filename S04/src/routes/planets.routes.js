@@ -19,24 +19,43 @@ class PlanetsRoutes {
         router.put('/:idPlanet', this.put);
     }
 
-    patch(req, res, next) {
-        return next(HttpError.NotImplemented()); //Ou pas lol
+    async patch(req, res, next) {
+        
+        try{
+            let planet = await planetRepository.update(req.params.idPlanet, req.body);
+            if (!planet) {
+                return next(HttpError.NotFound(`La planet est pas la`));
+            }
+
+            planet = planet.toObject({getters:false, virtuals:false});
+            planet = planetRepository.transform(planet);
+
+            res.status(200).json(planet);
+        }catch(err){
+            return next(err);
+        }
+
     }
 
     put(req, res, next) {
         return next(HttpError.MethodNotAllowed());
     }
 
-    delete(req, res, next) {
+    async delete(req, res, next) {
 
-        const index = PLANETS.findIndex(p => p.id == req.params.idPlanet);
 
-        if (index === -1) {
-            return next(HttpError.NotFound(`La planet est pas la`));
-        } else {
-            PLANETS.splice(index, 1);
+        try{
+            const deleteResult = await delete(req.params.idPlanet);
+            if (!deleteResult) {
+                return next(HttpError.NotFound(`La planet est pas la`));
+            }
             res.status(204).end();
+        } catch(err){
+            return next(err);
         }
+
+        
+
 
     }
 

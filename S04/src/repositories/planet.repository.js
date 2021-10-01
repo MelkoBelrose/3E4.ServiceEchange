@@ -1,4 +1,5 @@
 import Planet from '../models/planet.model.js';
+//import objectToDotNotation from '../libs/objectToDotNotation.js';
 
 const ZERO_KELVIN = -273.15;
 class PlanetRepository {
@@ -20,8 +21,18 @@ class PlanetRepository {
         return Planet.find(filter);
     }
 
+    update(isPlanet,planetModif){
+
+        //const planetToDotNotation = objectToDotNotation(planetModifs);
+        //return Planet.findByIdAndUpdate(idPlanet,planetToDotNotation,{new:true});
+    }
+
     create(planet){
         return Planet.create(planet)
+    }
+
+    delete(idPlanet){
+        return Planet.findByIdAndDelete(idPlanet);
     }
 
     transform(planet, transformOptions = {}){
